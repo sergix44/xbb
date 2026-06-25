@@ -1,0 +1,33 @@
+{
+  "name": "xbb/app",
+  "description": "The standalone xbackbone application",
+  "license": "AGPL-3.0-only",
+  "authors": [
+    {
+      "name": "Sergio Brighenti",
+      "email": "sergio@brighenti.me"
+    }
+  ],
+  "minimum-stability": "stable",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../core/"
+    }
+  ],
+  "require": {
+    "xbb/core": "dev-next as 1.0"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php xbb package:discover --ansi",
+      "@php xbb vendor:publish --tag=app --force --ansi",
+      "@php xbb vendor:publish --tag=app-img --ansi"
+    ],
+    "post-create-project-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php xbb key:generate --ansi"
+    ]
+  }
+}
